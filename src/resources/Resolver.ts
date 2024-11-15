@@ -122,7 +122,9 @@ export class Resolver {
     return {
       [logicalIdResolver]: {
         Type: 'AWS::AppSync::Resolver',
-        DependsOn: [logicalIdGraphQLSchema],
+        ...(!this.api.isExistingApi() && {
+          DependsOn: [logicalIdGraphQLSchema],
+        }),
         Properties,
       },
     };
